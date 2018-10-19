@@ -48,7 +48,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-4">
 						<label for="jobTemplate">Job Template/Class</label>
-						<select class="form-control" id="jobTemplate">
+						<select class="form-control" id="jobTemplate" name="jobTemplate">
 					      <option value="org.paingan.scheduler.job.SampleJob">org.paingan.scheduler.job.SampleJob</option>
 					    </select>
 					</div>
@@ -140,11 +140,11 @@
 			function actionFormatter( value, row ,index ) {
 				
 				var action = ( row.jobActive === true ) ?
-						'<button onclick="stop('+ row.id +')" type="button" class="stop btn btn-xs btn-danger">Stop</button>' :
-						'<button onclick="start('+ row.id +')" type="button" class="start btn btn-xs btn-success">Start</button>';
+						'<button onclick="stop('+ row.id +')" type="button" class="pause btn btn-warning">Pause</button>' :
+						'<button onclick="start('+ row.id +')" type="button" class="start btn btn-success">Start</button>';
 				
-				var edit = "<button onclick='edit("+ JSON.stringify(row) +")' type='button' class='edit btn btn-xs btn-primary'>Edit</button>";
-				var del = '<button onclick="del('+ row.id +')" type="button" class="delete btn-xs btn btn-danger">Delete</button>'
+				var edit = "<button onclick='edit("+ JSON.stringify(row) +")' type='button' class='edit btn btn-primary'>Edit</button>";
+				var del = '<button onclick="del('+ row.id +')" type="button" class="delete btn btn-danger">Delete</button>'
 						
 				return  action + '&nbsp' + edit + '&nbsp' + del; 
 				
