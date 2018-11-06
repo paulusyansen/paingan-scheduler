@@ -18,7 +18,7 @@
 	
 		<main role="main" class="container">
 		
-		<div class="row mt-4">
+		<div class="row mt-4" th:fragment="form">
 			<div class="col-md-12 " id="schedulerForm">
 				<h4 class="mb-3"><strong>Scheduler UI</strong></h4>
 				
@@ -67,32 +67,6 @@
 		
 		<hr class="mb-4">
 		
-		<div class="table-responsive">
-			<table 
-					   id="schedulerTable"
-					   data-toggle="table"
-				       data-url="api/list"
-				       data-method="get"
-				       data-pagination="true"
-				       data-page-number="1"
-				       data-page-size="5"
-				       data-show-pagination-switch="true"
-				       data-side-pagination="server"
-				       data-response-handler="responseHandler"
-				       class="table table-hover">
-			    <thead class="thead-dark">
-				    <tr>
-				        <th data-field="content.id" data-halign="center" data-align="center" data-sortable="true">ID</th>
-				        <th data-field="content.jobName" data-halign="center"  data-align="left" data-sortable="true">Name</th>
-				        <th data-field="jobGroup"  data-halign="center" data-align="left" data-sortable="true">Group</th>
-				        <th data-field="cronHumanExpression" data-halign="center"  data-align="left" data-sortable="false">Cron Human Expression</th>
-				        <th data-field="jobTemplate"  data-halign="center" data-align="left" data-sortable="false">Template</th>
-				        <th data-field="jobNote" data-halign="center"  data-align="center" data-sortable="false">Note</th>
-				        <th data-field="action" data-halign="center"  data-align="center" data-sortable="false" data-formatter="actionFormatter" >Action</th>
-				    </tr>
-			    </thead>
-			</table>
-		</div>
 		
 		</main>
 	

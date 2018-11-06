@@ -42,6 +42,27 @@ public class JobSchedule implements Serializable {
 	@Column(name="job_state")
 	private boolean jobState;
 
+	
+	
+
+	public JobSchedule() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public JobSchedule(Long id, String jobName, String jobGroup, String jobTemplate, String cronExpression,
+			String cronHumanExpression, String jobNote, boolean jobActive, boolean jobState) {
+		super();
+		this.id = id;
+		this.jobName = jobName;
+		this.jobGroup = jobGroup;
+		this.jobTemplate = jobTemplate;
+		this.cronExpression = cronExpression;
+		this.cronHumanExpression = cronHumanExpression;
+		this.jobNote = jobNote;
+		this.jobActive = jobActive;
+		this.jobState = jobState;
+	}
 
 	public Long getId() {
 		return id;

@@ -5,11 +5,13 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -31,7 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,11 +83,56 @@ public class JobScheduleServiceImpl implements JobScheduleService{
 		return jobScheduleRepository.findById(id);
 	}
 	
+	public Page<JobSchedule> getListJobSchedule(Pageable pageable) {
+		return jobScheduleRepository.findAll( pageable );
+	}
+	
+	
+    private static List<JobSchedule> jobSchedule = new ArrayList<JobSchedule>();
+
+    private static final int NUM_BOOKS = 30;
+        
+    private static final int MIN_BOOK_NUM = 1000;
+
+    private List<JobSchedule> buildJobsSchedule() {
+    	
+    	List<JobSchedule> jobsList = jobScheduleRepository.findAll();
+
+    	
+//        if (jobSchedule.isEmpty()) {
+//            IntStream.range(0, NUM_BOOKS).forEach(n -> {
+//            	jobSchedule.add(new JobSchedule(n, jobName, jobGroup, jobTemplate, cronExpression, cronHumanExpression, jobNote, jobActive, jobState));
+//            });
+//            
+//        }
+
+        return jobsList;
+    }
+	
 	@Override
 	@Transactional(readOnly = true)
 	public Page<JobSchedule> findAll(Pageable pageable) {
 		log.debug("Request to get all JobSchedules");
-        return jobScheduleRepository.findAll(pageable);
+		
+		int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+		
+        List<JobSchedule> jobList = buildJobsSchedule();
+		
+        List<JobSchedule> list;
+        
+        if (jobList.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, jobList.size() );
+            list = jobList.subList(startItem, toIndex);
+        }
+        
+        Page<JobSchedule> jobPage
+        = new PageImpl<JobSchedule>(list, PageRequest.of(currentPage, pageSize), jobList.size());
+        
+        return jobPage;
 	}
 
 	@Override

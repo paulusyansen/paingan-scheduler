@@ -1,0 +1,53 @@
+<div class="row mt-4" th:fragment="form">
+	<div class="col-md-12 " id="schedulerForm">
+		<h4 class="mb-3">
+			<strong>Scheduler UI</strong>
+		</h4>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<input type="hidden" name="id" /> <label for="jobName">Name</label>
+				<input type="text" class="form-control input-sm" name="jobName"
+					id="jobName" placeholder="Name">
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="cronExpression">Cron Expression</label> <input
+					type="text" class="form-control input-sm" name="cronExpression"
+					id="cronExpression" placeholder="Expression"
+					value="0 0/1 * 1/1 * ? *">
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="jobGroup">Job Group</label> <input type="text"
+					class="form-control input-sm" name="jobGroup" id="jobGroup"
+					placeholder="Group">
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="jobTemplate">Job Template/Class</label> <select
+					class="form-control" id="jobTemplate" name="jobTemplate">
+					<option value="org.paingan.scheduler.job.SampleJob">org.paingan.scheduler.job.SampleJob</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="jobNote">Note</label> <input type="text"
+					class="form-control input-sm" name="jobNote" id="jobNote"
+					placeholder="Note">
+			</div>
+		</div>
+
+		<button type="button" onclick="submit(); return false;"
+			class="btn btn-primary btn-dark">Submit</button>
+
+	</div>
+</div>

@@ -1,0 +1,36 @@
+<table>
+    <thead class="thead-dark" th:fragment="fields(theadFields)">
+        <tr th:replace="${theadFields}">
+        </tr>
+    </thead>
+    
+    <tbody th:fragment="tableBody(tableData)">
+        <tr th:each="row : ${tableData}">
+            <td th:text="${row.id}">0</td>
+            <td th:text="${row.jobName}">Name</td>
+            <td th:text="${row.jobGroup}">Group</td>
+            <td th:text="${row.cronExpression}">Cron Exp</td>
+            <td th:text="${row.jobTemplate}">Template</td>
+            <td th:text="${row.jobNote}">Note</td>
+            
+            <td>
+            	<input type="hidden" id="{{row.id}}"/>
+            	<button th:onclick="${'edit('+row.id+');'}" class='edit btn btn-primary'>Edit</button>
+            	<button th:onclick="${'del('+row.id+');'}" class="delete btn btn-danger">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<nav aria-label="..." th:fragment="pagination(pages, pageNumbers)">
+<!-- 	<ul th:if="${pages.totalPages > 0}" class="pagination pagination-sm" th:each="pageNumber : ${pageNumbers}"> -->
+	
+<!-- 		 <li th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' "> -->
+	<ul class="pagination pagination-sm">
+		<li th:if="${pages.totalPages > 0}" th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' " th:each="pageNumber : ${pageNumbers}">
+	        <a th:href="@{/listJobs(size=${pages.size}, page=${pageNumber})}"
+	            th:text=${pageNumber}
+	            th:class="${pageNumber==jobsPage.number + 1} ? 'page-link' : 'page-link' "></a>
+	     </li>	
+	</ul>
+</nav>

@@ -70,10 +70,10 @@
             <artifactId>spring-context-support</artifactId>
         </dependency>
         
-        <dependency>
+		<dependency>
 		    <groupId>com.cronutils</groupId>
 		    <artifactId>cron-utils</artifactId>
-		    <version>6.0.3</version>
+		    <version>7.0.6</version>
 		</dependency>
 		
 		<dependency>
