@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -20,6 +21,7 @@ import org.paingan.scheduler.job.DefaultJob;
 import org.paingan.scheduler.model.JobSchedule;
 import org.paingan.scheduler.repository.JobScheduleRepository;
 import org.paingan.scheduler.service.JobScheduleService;
+import org.quartz.CronExpression;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobKey;
@@ -39,6 +41,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.cronutils.descriptor.CronDescriptor;
+import com.cronutils.model.CronType;
+import com.cronutils.model.definition.CronDefinition;
+import com.cronutils.model.definition.CronDefinitionBuilder;
+import com.cronutils.parser.CronParser;
 
 
 @Service
@@ -87,24 +95,22 @@ public class JobScheduleServiceImpl implements JobScheduleService{
 		return jobScheduleRepository.findAll( pageable );
 	}
 	
-	
-    private static List<JobSchedule> jobSchedule = new ArrayList<JobSchedule>();
-
-    private static final int NUM_BOOKS = 30;
-        
-    private static final int MIN_BOOK_NUM = 1000;
 
     private List<JobSchedule> buildJobsSchedule() {
     	
     	List<JobSchedule> jobsList = jobScheduleRepository.findAll();
 
-    	
-//        if (jobSchedule.isEmpty()) {
-//            IntStream.range(0, NUM_BOOKS).forEach(n -> {
-//            	jobSchedule.add(new JobSchedule(n, jobName, jobGroup, jobTemplate, cronExpression, cronHumanExpression, jobNote, jobActive, jobState));
-//            });
-//            
-//        }
+    	for (JobSchedule jobSchedule : jobsList) {
+			
+    		jobSchedule.setJobStatus(this.getJobState(jobSchedule.getJobName(), jobSchedule.getJobGroup()));
+    		
+    		CronDefinition cronDefinition =	CronDefinitionBuilder.instanceDefinitionFor(CronType.QUARTZ);
+    		CronParser parser = new CronParser(cronDefinition);
+    		CronDescriptor descriptor = CronDescriptor.instance(Locale.getDefault());
+    		
+    		boolean isValid = CronExpression.isValidExpression(jobSchedule.getCronExpression());
+    		jobSchedule.setCronHumanExpression( isValid ? descriptor.describe( parser.parse( jobSchedule.getCronExpression() ) ) : "INVALID");
+		}
 
         return jobsList;
     }

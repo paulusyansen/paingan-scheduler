@@ -49,6 +49,7 @@
 		                <th>Cron Human Exp</th>
 		                <th>Template</th>
 		                <th>Note</th>
+		                <th>Status</th>
 		                <th>Action</th>
 		            </tr>
 			    </thead>
@@ -60,47 +61,8 @@
 		
 		<nav th:replace="/fragments/table.html :: pagination(pages=${jobsPage}, pageNumbers= ${pageNumbers})" aria-label="..."></nav>
 		
-		<nav aria-label="...">
-  <ul class="pagination pagination-sm">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">1</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-  </ul>
-</nav>
 
 </main>
-
-<!--     <h1>Book List</h1> -->
-<!--     <table border="1"> -->
-<!--         <thead> -->
-<!--             <tr> -->
-<!--                 <th th:text="#{msg.id}" /> -->
-<!--                 <th th:text="#{msg.name}" /> -->
-<!--             </tr> -->
-<!--         </thead> -->
-<!--         <tbody> -->
-<!--             <tr th:each="book, iStat : ${jobsPage.content}" -->
-<!--                 th:style="${iStat.odd}? 'font-weight: bold;'" -->
-<!--                 th:alt-title="${iStat.even}? 'even' : 'odd'"> -->
-<!--                 <td th:text="${book.id}" /> -->
-<!--                 <td th:text="${book.jobName}" /> -->
-<!--             </tr> -->
-<!--         </tbody> -->
-<!--     </table> -->
-<!--     <div th:if="${jobsPage.totalPages > 0}" class="pagination" -->
-<!--         th:each="pageNumber : ${pageNumbers}"> -->
-<!--         <a th:href="@{/listJobs(size=${jobsPage.size}, page=${pageNumber})}" -->
-<!--             th:text=${pageNumber} -->
-<!--             th:class="${pageNumber==jobsPage.number + 1} ? active"></a> -->
-<!--     </div> -->
-
-<!--     <div> -->
-<!--         <p> -->
-<!--             <a th:href="@{/}" th:text="#{msg.Home}"></a> -->
-<!--         </p> -->
-<!--     </div> -->
 </body>
 
 

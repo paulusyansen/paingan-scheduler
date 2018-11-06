@@ -18,16 +18,16 @@ public class JobSchedule implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="job_name")
+	@Column(name="job_name", unique = true, nullable = false)
 	private String jobName;
 	
-	@Column(name="job_group")
+	@Column(name="job_group", nullable = false)
 	private String jobGroup;
 	
-	@Column(name="job_template")
+	@Column(name="job_template", nullable = false)
 	private String jobTemplate;
 	
-	@Column(name="cron_exp")
+	@Column(name="cron_exp", nullable = false)
 	private String cronExpression;
 	
 	@Column(name="cron_human_exp")
@@ -41,9 +41,10 @@ public class JobSchedule implements Serializable {
 	
 	@Column(name="job_state")
 	private boolean jobState;
+	
+	@Column(name="job_status")
+	private String jobStatus;
 
-	
-	
 
 	public JobSchedule() {
 		super();
@@ -51,7 +52,7 @@ public class JobSchedule implements Serializable {
 	}
 
 	public JobSchedule(Long id, String jobName, String jobGroup, String jobTemplate, String cronExpression,
-			String cronHumanExpression, String jobNote, boolean jobActive, boolean jobState) {
+			String cronHumanExpression, String jobNote, boolean jobActive, boolean jobState, String jobStatus) {
 		super();
 		this.id = id;
 		this.jobName = jobName;
@@ -62,6 +63,7 @@ public class JobSchedule implements Serializable {
 		this.jobNote = jobNote;
 		this.jobActive = jobActive;
 		this.jobState = jobState;
+		this.jobStatus = jobStatus;
 	}
 
 	public Long getId() {
@@ -137,12 +139,21 @@ public class JobSchedule implements Serializable {
 		this.jobState = jobState;
 	}
 
+	public String getJobStatus() {
+		return jobStatus;
+	}
+
+	public void setJobStatus(String jobStatus) {
+		this.jobStatus = jobStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "JobSchedule [id=" + id + ", jobName=" + jobName + ", jobGroup=" + jobGroup + ", jobTemplate="
 				+ jobTemplate + ", cronExpression=" + cronExpression + ", cronHumanExpression=" + cronHumanExpression
-				+ ", jobNote=" + jobNote + ", jobActive=" + jobActive + ", jobState=" + jobState + "]";
+				+ ", jobNote=" + jobNote + ", jobActive=" + jobActive + ", jobState=" + jobState + ", jobStatus="
+				+ jobStatus + "]";
 	}
-
+	
 	
 }
