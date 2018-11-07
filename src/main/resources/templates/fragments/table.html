@@ -29,7 +29,7 @@
 	
 <!-- 		 <li th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' "> -->
 	<ul class="pagination pagination-sm">
-		<li th:if="${pages.totalPages > 0}" th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' " th:each="pageNumber : ${pageNumbers}">
+		<li th:if="${pages.totalPages > 1}" th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' " th:each="pageNumber : ${pageNumbers}">
 	        <a th:href="@{/listJobs(size=${pages.size}, page=${pageNumber})}"
 	            th:text=${pageNumber}
 	            th:class="${pageNumber==jobsPage.number + 1} ? 'page-link' : 'page-link' "></a>
