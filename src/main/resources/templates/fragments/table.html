@@ -14,10 +14,10 @@
             <td th:text="${row.jobNote}">Note</td>
             <td th:text="${row.jobStatus}">Status</td>
             <td>
-            	<input type="hidden" id="{{row.id}}"/>
-            	<button th:if="${row.jobStatus == 'SCHEDULED'}" th:onclick="${'stop('+row.id+');'}" class='edit btn btn-warning'>Pause</button>
-            	<button th:if="${row.jobStatus == 'PAUSED'}" th:onclick="${'start('+row.id+');'}" class='edit btn btn-success'>Resume</button>
-            	<button th:onclick="${'edit('+row.id+');'}" class='edit btn btn-primary'>Edit</button>
+            	<input type="hidden" th:id="${row.id}"/>
+            	<button th:if="${row.jobStatus == 'SCHEDULED'}" th:onclick="${'stop('+row.id+');'}" class="edit btn btn-warning">Pause</button>
+            	<button th:if="${row.jobStatus == 'PAUSED'}" th:onclick="${'start('+row.id+');'}" class="edit btn btn-success">Resume</button>
+            	<button th:onclick="|edit(${row.id},'${row.jobName}','${row.jobGroup}','${row.cronExpression}','${row.jobTemplate}','${row.jobNote}','${row.jobStatus}');|" class="edit btn btn-primary">Edit</button>
             	<button th:onclick="${'del('+row.id+');'}" class="delete btn btn-danger">Delete</button>
             </td>
         </tr>
@@ -30,7 +30,7 @@
 <!-- 		 <li th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' "> -->
 	<ul class="pagination pagination-sm">
 		<li th:if="${pages.totalPages > 1}" th:class="${pageNumber==jobsPage.number + 1} ? 'page-item disabled' : 'page-item' " th:each="pageNumber : ${pageNumbers}">
-	        <a th:href="@{/listJobs(size=${pages.size}, page=${pageNumber})}"
+	        <a th:href="@{/v2(size=${pages.size}, page=${pageNumber})}"
 	            th:text=${pageNumber}
 	            th:class="${pageNumber==jobsPage.number + 1} ? 'page-link' : 'page-link' "></a>
 	     </li>	

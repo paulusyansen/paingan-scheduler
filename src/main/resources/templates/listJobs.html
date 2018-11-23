@@ -136,10 +136,18 @@
 				});
 			}
 			
-			function edit( row ) {
-				$.each(row, function(key, value) {
-				    $('#schedulerForm [name='+key+']').val(value);
-				});
+			function edit(id,jobName,jobGroup,cronExp,jobTemplate,jobNote,jobStatus ) {
+// 				$.each(row, function(key, value) {
+// 				    $('#schedulerForm [name='+key+']').val(value);
+// 				});
+
+				$('#schedulerForm [name="id"]').val(id);
+				$('#schedulerForm [name="jobName"]').val(jobName);
+				$('#schedulerForm [name="jobGroup"]').val(jobGroup);
+				$('#schedulerForm [name="cronExpression]"]').val(cronExp);
+				$('#schedulerForm [name="jobTemplate"]').val(jobTemplate);
+				$('#schedulerForm [name="jobStatus"]').val(jobStatus);
+				$('#schedulerForm [name="jobNote"]').val(jobNote);
 			}
 			
 			
