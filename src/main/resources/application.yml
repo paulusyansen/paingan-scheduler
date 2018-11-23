@@ -1,0 +1,46 @@
+server:
+  port: 8083
+  
+spring:
+
+  application:
+    name: Paingan Scheduler v0.2
+    
+  datasource:
+    driverClassName: org.h2.Driver
+    password: ''
+    testOnBorrow: true
+    url: jdbc:h2:~/SCH2;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    validationQuery: SELECT 1
+    
+  h2:
+    console:
+      enabled: true
+      
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    
+  quartz:
+    jdbc:
+      initialize-schema: always
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCount: 5
+            
+  thymeleaf:
+    cache: false
+    
+    
+logging:
+  level:
+    org:
+      paingan:
+        scheduler: DEBUG
+      quartz: DEBUG

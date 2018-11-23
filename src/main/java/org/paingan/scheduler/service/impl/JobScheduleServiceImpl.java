@@ -282,7 +282,11 @@ public class JobScheduleServiceImpl implements JobScheduleService{
 		try {
 			JobKey jobKey = new JobKey(jobName, jobGroup);
 			//Scheduler scheduler = scheduler;
+			
+			
 			JobDetail jobDetail = schedulerFactoryBean.getScheduler().getJobDetail(jobKey);
+					
+			if(jobDetail !=null) {
 			List<? extends Trigger> triggers = schedulerFactoryBean.getScheduler().getTriggersOfJob(jobDetail.getKey());
 			if(triggers != null && triggers.size() > 0){
 				for (Trigger trigger : triggers) {
@@ -301,6 +305,7 @@ public class JobScheduleServiceImpl implements JobScheduleService{
 						return "SCHEDULED";
 					}
 				}
+			}
 			}
 		} catch (SchedulerException e) {
 			log.error("SchedulerException while checking job with name and group exist: {}", e);
