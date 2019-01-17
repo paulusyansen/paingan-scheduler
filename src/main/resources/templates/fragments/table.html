@@ -17,9 +17,9 @@
             <td>
             	<input type="hidden" th:id="${row.id}"/>
             	<button th:if="${row.jobStatus == 'SCHEDULED'}" th:onclick="${'stop('+row.id+');'}" class="edit btn btn-warning">Pause</button>
-            	<button th:if="${row.jobStatus == 'PAUSED'}" th:onclick="${'start('+row.id+');'}" class="edit btn btn-success">Resume</button>
+            	<button th:if="${row.jobStatus != 'SCHEDULED'}" th:onclick="${'start('+row.id+');'}" class="edit btn btn-success">Resume</button>
             	
-            	<button th:onclick="${'start('+row.id+');'}" class="edit btn btn-success">Resume</button>
+<!--             	<button th:onclick="${'start('+row.id+');'}" class="edit btn btn-success">Resume</button> -->
             	<button th:onclick="|edit(${row.id},'${row.jobName}','${row.jobGroup}','${row.cronExpression}','${row.jobTemplate}','${row.jobNote}','${row.jobStatus}');|" class="edit btn btn-primary">Edit</button>
 				<button th:onclick="|del(${row.id})|" class="delete btn btn-danger">Delete</button>
             </td>

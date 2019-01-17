@@ -287,30 +287,30 @@ public class JobScheduleServiceImpl implements JobScheduleService{
 			JobDetail jobDetail = schedulerFactoryBean.getScheduler().getJobDetail(jobKey);
 					
 			if(jobDetail !=null) {
-			List<? extends Trigger> triggers = schedulerFactoryBean.getScheduler().getTriggersOfJob(jobDetail.getKey());
-			if(triggers != null && triggers.size() > 0){
-				for (Trigger trigger : triggers) {
-					TriggerState triggerState = schedulerFactoryBean.getScheduler().getTriggerState(trigger.getKey());
-					if (TriggerState.PAUSED.equals(triggerState)) {
-						return "PAUSED";
-					}else if (TriggerState.BLOCKED.equals(triggerState)) {
-						return "BLOCKED";
-					}else if (TriggerState.COMPLETE.equals(triggerState)) {
-						return "COMPLETE";
-					}else if (TriggerState.ERROR.equals(triggerState)) {
-						return "ERROR";
-					}else if (TriggerState.NONE.equals(triggerState)) {
-						return "NONE";
-					}else if (TriggerState.NORMAL.equals(triggerState)) {
-						return "SCHEDULED";
+				List<? extends Trigger> triggers = schedulerFactoryBean.getScheduler().getTriggersOfJob(jobDetail.getKey());
+				if(triggers != null && triggers.size() > 0){
+					for (Trigger trigger : triggers) {
+						TriggerState triggerState = schedulerFactoryBean.getScheduler().getTriggerState(trigger.getKey());
+						if (TriggerState.PAUSED.equals(triggerState)) {
+							return "PAUSED";
+						}else if (TriggerState.BLOCKED.equals(triggerState)) {
+							return "BLOCKED";
+						}else if (TriggerState.COMPLETE.equals(triggerState)) {
+							return "COMPLETE";
+						}else if (TriggerState.ERROR.equals(triggerState)) {
+							return "ERROR";
+						}else if (TriggerState.NONE.equals(triggerState)) {
+							return "NONE";
+						}else if (TriggerState.NORMAL.equals(triggerState)) {
+							return "SCHEDULED";
+						}
 					}
 				}
-			}
 			}
 		} catch (SchedulerException e) {
 			log.error("SchedulerException while checking job with name and group exist: {}", e);
 		}
-		return null;
+		return "NONE";
 	}
 	
 	public boolean isJobRunning(String jobName, String jobGroup) {
